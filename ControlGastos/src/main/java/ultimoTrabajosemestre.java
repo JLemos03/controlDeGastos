@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 public class ultimoTrabajosemestre extends JFrame {
     private double saldo;
+    private int saldoInicial;
     private JLabel saldoLabel;
     private JTextField montoField;
     private JButton agregarButton, gastarButton;
@@ -22,6 +23,7 @@ public class ultimoTrabajosemestre extends JFrame {
 
         
         saldoLabel = new JLabel("Saldo: $" + saldo);
+        //saldoInicial= (int)saldo;
         saldoLabel.setBounds(180, 20, 200, 30);
         add(saldoLabel);
 
@@ -50,6 +52,9 @@ public class ultimoTrabajosemestre extends JFrame {
 
         String[] categorias = {"Alimentación", "Ropa", "Facturas", "Mascotas", "Transporte", "Gastos Hormiga"};
         JProgressBar[] barras = {
+            
+            
+            
             alimentacionBar = new JProgressBar(0, 100),
             ropaBar = new JProgressBar(0, 100),
             facturasBar = new JProgressBar(0, 100),
@@ -70,8 +75,12 @@ public class ultimoTrabajosemestre extends JFrame {
             barras[i].setBounds(160, barraY + (i * 40), barraAncho, barraAlto);
             add(barras[i]);
             
+            System.out.println("Es la i: " + i);
             barrasGastos.put(categorias[i], barras[i]);
         }
+        
+//         int j = ((i*100) / (int) saldo);
+//            System.out.println("AQUIIII" + j);
 
         
         agregarButton.addActionListener(new ActionListener() {
@@ -104,12 +113,17 @@ public class ultimoTrabajosemestre extends JFrame {
                         return;
                     }
 
+                    saldoInicial = (int) saldo;
                     saldo -= monto;
+                    
                     saldoLabel.setText("Saldo: $" + saldo);
 
                     JProgressBar barra = barrasGastos.get(categoria);
-                    int nuevoValor = Math.min(barra.getValue() + (int) monto, 100);
+                    System.out.println(barra.getValue() );
+                    //int nuevoValor = Math.min(barra.getValue() + (int) monto, 100);
+                    int nuevoValor = ((int) monto * 100) / (int)saldoInicial ;
                     barra.setValue(nuevoValor);
+                    System.out.println(nuevoValor);
 
                     montoField.setText("");
 
