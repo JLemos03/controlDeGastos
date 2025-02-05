@@ -87,9 +87,19 @@ public class ultimoTrabajosemestre extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     double monto = Double.parseDouble(montoField.getText());
-                    saldo += monto;
-                    saldoLabel.setText("Saldo: $" + saldo);
-                    montoField.setText("");
+                    
+                    if (saldo == 0) { // Solo asignar saldoInicial la primera vez
+                         saldoInicial = (int) monto;
+                         
+                         saldo += monto;
+                        saldoLabel.setText("Saldo: $" + saldo);
+                        montoField.setText("");
+                    } else {
+                       JOptionPane.showMessageDialog(null, "Ya ingresaste un saldo inicial");
+
+                    }
+                    
+                    
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Ingrese un número válido");
                 }
@@ -113,7 +123,7 @@ public class ultimoTrabajosemestre extends JFrame {
                         return;
                     }
 
-                    saldoInicial = (int) saldo;
+                    //saldoInicial = (int) saldo;
                     saldo -= monto;
                     
                     saldoLabel.setText("Saldo: $" + saldo);
